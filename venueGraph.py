@@ -5,15 +5,16 @@ class Edge(object):
     self.n2 = n2
     self.distance = dist(n1,n2)
     self.same = (n1.category == n2.category)
-    self.weight = self.calc_weight()
+    self.update_weight()
 
-  def calc_weight(self):
+  def update_weight(self): #self.weight is [0,1]
     p_mov0 = 0.5
     dropoff = 0.04
     w = p_mov0-p_mov0/(1+math.exp(-dropoff*self.distance))
     if(self.same):
-      return w*1.2
-    return w
+      self.weight =  w*1.2
+    else:
+      self.weight = w
 
 class Venue(object):
   def __init__(self, json, category_name):
@@ -22,8 +23,10 @@ class Venue(object):
     self.category = category_name
     self.lat = float(json['location']['lat'])
     self.lng = float(json['location']['lng'])
-    self.pop = int(json['stats']['usersCount'])
+    self.population = int(json['stats']['usersCount'])
     self.infected = 0
+    self.new_population = self.population
+    self.new_infected = self.infected
     self.edges = []
 
 def distance_on_sphere(lat1, long1, lat2, long2):
