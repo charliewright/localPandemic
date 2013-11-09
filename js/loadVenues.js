@@ -15,7 +15,7 @@ function loadVenues() {
         $('#map_canvas').gmap('addMarker', { 
           'position': new google.maps.LatLng(venue.lat, venue.lng), 
           'bounds': true 
-        }).click(function() {
+        }).mouseover(function() {
           $('#map_canvas').gmap('openInfoWindow', { 'content': venue.name }, this);
         });
       });
