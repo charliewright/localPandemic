@@ -8,15 +8,16 @@ function loadVenues() {
       jsons = JSON.parse(http_request.responseText);
       venues = [];
       for(obj in jsons) {
-        venues.push(new Venue(jsons[obj]));
+        venues.push(new Venue(jsons[obj], obj));
       }
       $.each(venues, function(i, venue) {
-        console.log(venue.lat, venue.lng);
         $('#map_canvas').gmap('addMarker', { 
           'position': new google.maps.LatLng(venue.lat, venue.lng), 
-          'bounds': true 
+          'bounds': true,
+          'icon': 'images/blue_icon.png',
+          'venue_id' : venue.id
         }).mouseover(function() {
-          $('#map_canvas').gmap('openInfoWindow', { 'content': venue.name }, this);
+          $('#map_canvas').gmap('openInfoWindow', { 'content': venue.contentString() }, this);
         });
       });
       simulate(venues);

@@ -2,24 +2,23 @@ function Edge(n1,n2) {
   this.n1 = n1;
   this.n2 = n2;
   this.distance = dist(n1,n2);
-  //console.log(this.distance);
   this.same = (n1.category == n2.category);
 
-  this.update_weight = function() {
+  this.weight = function() {
     p_mov0 = 0.5;
-    dropoff = 0.04;
+    dropoff = 0.01;
     w = p_mov0-p_mov0/(1+Math.exp(-dropoff*this.distance));
     if (self.same) {
-      this.weight =  w*1.2;
+      return w*1.2;
     }
     else {
-      this.weight = w;
+      return w;
     }
   }
-  this.update_weight();
 }
 
-function Venue(json) {
+function Venue(json, id) {
+  this.id = id
   this.name = json['name'];
   this.category = json['category'];
   this.lat = json['lat'];
@@ -27,6 +26,9 @@ function Venue(json) {
   this.population = json['population'];
   this.infected = 0;
   this.edges = [];
+  this.contentString = function() {
+    return (this.name + "\n Hipsters: " + this.infected)
+  }
 }
 
 function distance_on_sphere(lat1, lon1, lat2, lon2) {
