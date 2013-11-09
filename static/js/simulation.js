@@ -41,7 +41,6 @@ function update() {
       var incoming = edge.n1;
       sum_incoming_virus += Math.round(100*edge.weight()*incoming.infected);
     }
-    //console.log(incoming)
     self_virus = Math.round(v.infected * 0.01);
     if(v.infected  >  0) {
     //console.log("Node " + vi + " has " + v.infected + " infected");
@@ -54,7 +53,6 @@ function update() {
 
   for (v in venues) {
     venues[v].infected = venues[v].new_infected;
-    //venues[v].population = venues[v].new_population;
   }
   $('#map_canvas').gmap('clear', 'markers');
   $.each(venues, function(i, venue) {
@@ -81,14 +79,12 @@ function randomRange(l,h){
 function init() {
   connect();
   start_i = randomRange(0,venues.length);
-  console.log(venues[start_i]);
-  console.log(start_i);
+  console.log("The starting point is " + venues[start_i].name);
   venues[start_i].infected = Math.round(venues[start_i].population*0.1)
 }
 
 function simulate() { //venues is a list of JSON objects
   init();
-  console.log("Connected");
   var total_pop = total_population();
   var total_inf= total_infected();
   console.log("Infected: " +  total_inf + ", Total population: " + total_pop);

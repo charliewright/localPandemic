@@ -1,9 +1,9 @@
 function loadVenues() {
-  var data_file = "/nycdata.json";
+  var data_file = "/data/nyc";
   var http_request = new XMLHttpRequest();
   http_request = new XMLHttpRequest();
   http_request.onreadystatechange  = function(){
-    if (http_request.readyState == 4  )
+    if (http_request.readyState == 4)
     {
       jsons = JSON.parse(http_request.responseText);
       venues = [];
