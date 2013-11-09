@@ -1,3 +1,4 @@
+import math
 import foursquare
 city = "NYC"
 radius = 1000
@@ -22,3 +23,20 @@ for cat in categories:
   print venues[cat]
 for cat in categories:
   print len(venues[cat])
+class Edge:
+  def __init__(self, n1,n2):
+    self.n1 = n1
+    self.n2 = n2
+    self.distance = dist(n1,n2)
+
+  def dist(self, n1, n2):
+    math.sqrtn((n2.lat-n1.lat)**2+(n2.lng-n1.lng)**2)
+
+class Venue:
+  def __init__(self, json):
+    self.json = json #store the whole object just in case
+    self.name = json['name']
+    self.lat = int(json['location']['lat'])
+    self.lng = int(json['location']['lng'])
+    #self.sub
+    self.edges = []
