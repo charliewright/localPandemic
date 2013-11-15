@@ -1,4 +1,5 @@
 function loadVenues() {
+  console.log("loading venues.");
   var data_file = "/data/New Haven";
   var http_request = new XMLHttpRequest();
   http_request = new XMLHttpRequest();
@@ -20,7 +21,7 @@ function loadVenues() {
           $('#map_canvas').gmap('openInfoWindow', { 'content': venue.contentString() }, this);
         });
       });
-      simulate(venues);
+      init();
     }
   }
   http_request.open("GET", data_file, true);
@@ -28,4 +29,5 @@ function loadVenues() {
 }
 $(document).ready(function() {
   loadVenues();
+  window.setInterval(update, 2000);
 });
